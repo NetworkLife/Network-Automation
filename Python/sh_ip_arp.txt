@@ -1,0 +1,10 @@
+SWITCH#sh ip arp | inc 00f
+Internet  10.84.12.10             0   00fe.c8d8.ee58  ARPA   Vlan895
+Internet  10.84.12.11             0   00f2.8b16.b7a8  ARPA   Vlan895
+Internet  10.84.12.12             0   00fe.c8f8.2c74  ARPA   Vlan895
+Internet  10.84.12.13             0   00fe.c8db.7ce0  ARPA   Vlan895
+Internet  10.84.12.14             0   00fe.c8f7.dca4  ARPA   Vlan895
+Internet  10.84.12.15             0   00f2.8b16.b744  ARPA   Vlan895
+Internet  10.84.12.16             0   00f2.8b65.f0b4  ARPA   Vlan895
+Internet  10.84.12.17             0   00f2.8b66.05c4  ARPA   Vlan895
+Internet  10.84.12.18             0   00fe.c8db.7a8c  ARPA   Vlan895 
