@@ -1,0 +1,6 @@
+SWITCH#sh mac address-table | inc 00f
+  50      0025.00f0.95df   dynamic ip,ipx,assigned,other Port-channel1              
+  50      0025.00f0.97c5   dynamic ip,ipx,assigned,other Port-channel1                       
+ 895      00f2.8b34.abd0   dynamic ip,ipx,assigned,other Port-channel1              
+ 895      00f2.8b34.b6ac    static ip,ipx,assigned,other GigabitEthernet5/43                
+ 895      00f2.8b34.b8e0   dynamic ip,ipx,assigned,other Port-channel1 
