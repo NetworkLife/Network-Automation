@@ -4,6 +4,8 @@
 
 '''
 Create the following table from a "show ip arp" and a "show mac address-table"
++-----------------++-----------------------------------------+
+| from sh ip arp  || from sh mac address-table               |
 +----+-----+------++--------+-----------+------+------+------+
 | IP | MAC | VLAN || SWITCH | SWITCH_IP | PORT | TYPE | GOOD |
 +----+-----+------++--------+-----------+------+------+------+
