@@ -10,7 +10,7 @@ Create the following table from a "show mac address-table"
 '''
 
 # Declare variables
-AP_CISCO_MAC = "00fe"
+AP_CISCO_MAC = "00f2"
 AP_CISCO_VLAN = 895
 
 PRINTER_MAC = "00ce"
@@ -46,36 +46,40 @@ for line in hand:
         row.append(mac)
     else:
         row.append("")
+        mac = ""
 
 	#PORT
     if re.search(r'[P][o][r][t][-][c][h][a][n][n][e][l][\s\S]+', line):
-        mac = re.findall(r'[P][o][r][t][-][c][h][a][n][n][e][l][\s\S]+', line)
-        row.append(mac)
+        port = re.findall(r'[P][o][r][t][-][c][h][a][n][n][e][l][\s\S]+', line)
+        row.append(port)
     elif re.search(r'[G][i][g][a][b][i][t][E][t][h][e][r][n][e][t][\s\S]+', line):
-        mac = re.findall(r'[G][i][g][a][b][i][t][E][t][h][e][r][n][e][t][\s\S]+', line)
-        row.append(mac)
+        port = re.findall(r'[G][i][g][a][b][i][t][E][t][h][e][r][n][e][t][\s\S]+', line)
+        row.append(port)
     elif re.search(r'[G][i][g][a][b][i][t][E][t][h][e][r][n][e][t][\s\S]+', line):
-        mac = re.findall(r'[G][i][g][a][b][i][t][E][t][h][e][r][n][e][t][\s\S]+', line)
-        row.append(mac)
+        port = re.findall(r'[G][i][g][a][b][i][t][E][t][h][e][r][n][e][t][\s\S]+', line)
+        row.append(port)
     else:
         row.append("")
 
 	#VERIFY if the mac address is a known type
-    if (mac[:4] == AP_CISCO_MAC):
+    mac4 = str(mac)
+    mac4 = mac4[2:6]
+    print ("\n")
+    if mac4 == AP_CISCO_MAC:
         row.append("AP_CISCO")
-    elif (mac[:4] == PRINTER_MAC):
+    elif mac4 == PRINTER_MAC:
         row.append("PRINTER")
     else:
-        row.append("")
+        row.append(mac4)
 
 	#VERIFY if the mac address match the good vlan
-    if (mac[:4] == AP_CISCO_MAC) and (vlan[0] != AP_CISCO_VLAN):
+    if mac4 == AP_CISCO_MAC and int(vlan[0]) != int(AP_CISCO_VLAN):
         row.append(False)
-    elif (mac[:4] == AP_CISCO_MAC) and (vlan[0] == AP_CISCO_VLAN)
+    elif mac4 == AP_CISCO_MAC and int(vlan[0]) == int(AP_CISCO_VLAN):
         row.append(True)
-    elif (mac[:4] == PRINTER_MAC) and (vlan[0] != PRINTER_VLAN):
+    elif mac4 == PRINTER_MAC and int(vlan[0]) != int(PRINTER_VLAN):
         row.append(False)
-    elif (mac[:4] == PRINTER_MAC) and (vlan[0] == PRINTER_VLAN)
+    elif (mac4 == PRINTER_MAC) and int(vlan[0]) == int(PRINTER_VLAN):
         row.append(True)
     else:
         row.append("")
