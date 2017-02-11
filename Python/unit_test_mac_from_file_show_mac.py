@@ -12,11 +12,22 @@ Create the following table from a "show mac address-table"
 # Declare variables
 AP_CISCO_MAC = "00f2"
 AP_CISCO_VLAN = 895
+AP_CISCO_TEMPLATE = (" switchport access vlan {0}\n shut\n no shut".format(AP_CISCO_VLAN))
 
 PRINTER_MAC = "00ce"
 PRINTER_VLAN = 200
+PRINTER_TEMPLATE = (" switchport access vlan {0}\n shut\n no shut".format(PRINTER_VLAN))
 
 import re
+
+'''
+function to remove the [' at the beginning and and '] at the end of a string
+'''
+def remove_re_format(input):
+    output = str(input)
+    output = output[2:len(output)]
+    output = output[0:(len(output)-2)]
+    return output
 
 # Init two dimension list
 twod_list = []
@@ -94,14 +105,25 @@ for line in twod_list:
 
 '''
 Generate the config for the wrongly configured ports
-+--------+-----------+------+-----+------+-------------------------------------+--------------------+
-| SWITCH | SWITCH_IP | VLAN | MAC | PORT | Type of Mac (if known) : AP, IMP... | Good vlan ? (BOOL) |
-+--------+-----------+------+-----+------+-------------------------------------+--------------------+
 
- if MAC is AP and VLAN is NOK, then reconfigure
- if MAC is PRINTER and VLAN is NOK, then reconfigure
-
+ if MAC is AP and VLAN is NOK, then reconfigure with the good template
+ if MAC is PRINTER and VLAN is NOK, then reconfigure with the good template
 '''
 
+switch = 'switch {0} {1}'.format(switch,switch_ip)
+print (switch)
+print ('*'*len(switch))
+
 for line in twod_list:
-    print(line)
+    switch_name = line[0]
+    switch_ip = line[1]
+    vlan = line[2]
+    mac = remove_re_format(line[3])
+    port = remove_re_format(line[4])
+    type = line[5]
+    good = line[6]
+
+    if not good:
+        if type is "AP_CISCO":
+            print('interface {0}'.format(port))
+            print('{0}\n'.format(AP_CISCO_TEMPLATE))
