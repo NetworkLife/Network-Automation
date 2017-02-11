@@ -72,7 +72,7 @@ for line in twod_list:
 '''
 generate an output file
 '''
-file = open("concatenate_2_tables_show_ip_arp-show_mac.txt","w") 
+file = open("concatenate_2_tables.txt","w") 
 output_file = ""
 for line in twod_list:
     output_file += str(line)
