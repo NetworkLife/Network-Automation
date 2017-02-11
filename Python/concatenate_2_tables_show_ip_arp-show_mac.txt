@@ -1,0 +1,6 @@
+['', '', '', 'SWITCH_NAME', 'SWITCH_IP', '', '', '']
+['10.84.12.10', '00f2.8b34.b6ac', '895', 'SWITCH_NAME', 'SWITCH_IP', 'GigabitEthernet5/46', 'AP_CISCO', True]
+['10.84.12.11', '00f2.8b34.b8e0', '895', 'SWITCH_NAME', 'SWITCH_IP', 'GigabitEthernet5/47', 'AP_CISCO', True]
+['10.84.12.12', '00f2.8b34.b8e1', '895', 'SWITCH_NAME', 'SWITCH_IP', 'GigabitEthernet5/48', 'AP_CISCO', True]
+['10.84.12.13', '00f2.8b34.b8e2', '895', 'SWITCH_NAME', 'SWITCH_IP', 'GigabitEthernet6/1', 'AP_CISCO', True]
+['10.84.12.14', '00f2.8b34.b8e3', '895', 'SWITCH_NAME', 'SWITCH_IP', 'GigabitEthernet6/10', 'AP_CISCO', False]

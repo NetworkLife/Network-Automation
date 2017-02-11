@@ -54,7 +54,7 @@ for line in hand:
 	#MAC
     if re.search(r'[0-9a-fA-F]{4}[.][0-9a-fA-F]{4}[.][0-9a-fA-F]{4}', line):
         mac = re.findall(r'[0-9a-fA-F]{4}[.][0-9a-fA-F]{4}[.][0-9a-fA-F]{4}', line)
-        row.append(mac)
+        row.append(remove_re_format(mac))
     else:
         row.append("")
         mac = ""
@@ -62,13 +62,13 @@ for line in hand:
 	#PORT
     if re.search(r'[P][o][r][t][-][c][h][a][n][n][e][l][\s\S]+', line):
         port = re.findall(r'[P][o][r][t][-][c][h][a][n][n][e][l][\s\S]+', line)
-        row.append(port)
+        row.append(remove_re_format(port))
     elif re.search(r'[G][i][g][a][b][i][t][E][t][h][e][r][n][e][t][\s\S]+', line):
         port = re.findall(r'[G][i][g][a][b][i][t][E][t][h][e][r][n][e][t][\s\S]+', line)
-        row.append(port)
+        row.append(remove_re_format(port))
     elif re.search(r'[G][i][g][a][b][i][t][E][t][h][e][r][n][e][t][\s\S]+', line):
         port = re.findall(r'[G][i][g][a][b][i][t][E][t][h][e][r][n][e][t][\s\S]+', line)
-        row.append(port)
+        row.append(remove_re_format(port))
     else:
         row.append("")
 
@@ -124,8 +124,8 @@ for line in twod_list:
     switch_name = line[0]
     switch_ip = line[1]
     vlan = line[2]
-    mac = remove_re_format(line[3])
-    port = remove_re_format(line[4])
+    mac = line[3]
+    port = line[4]
     type = line[5]
     good = line[6]
 	
