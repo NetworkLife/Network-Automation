@@ -12,11 +12,11 @@ Create the following table from a "show mac address-table"
 # Declare variables
 AP_CISCO_MAC = "00f2"
 AP_CISCO_VLAN = 895
-AP_CISCO_TEMPLATE = (" switchport access vlan {0}\n shut\n no shut".format(AP_CISCO_VLAN))
+AP_CISCO_TEMPLATE = (" switchport access vlan {0}\n description ** AP **\n shut\n no shut".format(AP_CISCO_VLAN))
 
-PRINTER_MAC = "00ce"
+PRINTER_MAC = "0025"
 PRINTER_VLAN = 200
-PRINTER_TEMPLATE = (" switchport access vlan {0}\n shut\n no shut".format(PRINTER_VLAN))
+PRINTER_TEMPLATE = (" switchport access vlan {0}\n description ** PRINTER **\n shut\n no shut".format(PRINTER_VLAN))
 
 import re
 
@@ -110,9 +110,15 @@ Generate the config for the wrongly configured ports
  if MAC is PRINTER and VLAN is NOK, then reconfigure with the good template
 '''
 
+output_file = ""
 switch = 'switch {0} {1}'.format(switch,switch_ip)
 print (switch)
+output_file += switch
+output_file += "\n"
+
 print ('*'*len(switch))
+output_file += ('*'*len(switch))
+output_file += "\n"
 
 for line in twod_list:
     switch_name = line[0]
@@ -122,8 +128,29 @@ for line in twod_list:
     port = remove_re_format(line[4])
     type = line[5]
     good = line[6]
-
-    if not good:
+	
+    #if the vlan is wrongly configured and the port is not an uplink (Port-Channel)
+    if not good and port[0:12] != "Port-channel":
+	
+	    #if it's an AP, configure it as an AP
         if type is "AP_CISCO":
             print('interface {0}'.format(port))
+            output_file += ('interface {0}'.format(port))
+            output_file += "\n"
             print('{0}\n'.format(AP_CISCO_TEMPLATE))
+            output_file += ('{0}\n'.format(AP_CISCO_TEMPLATE))
+
+	    #if it's a PRINTER, configure it as a PRINTER
+        if type is "PRINTER":
+            print('interface {0}'.format(port))
+            output_file += ('interface {0}'.format(port))
+            output_file += "\n"
+            print('{0}\n'.format(PRINTER_TEMPLATE))
+            output_file += ('{0}\n'.format(PRINTER_TEMPLATE))
+
+'''
+generate a config file
+'''
+file = open("new_config.txt","w") 
+file.write(output_file) 
+file.close() 

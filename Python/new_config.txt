@@ -1,0 +1,27 @@
+switch SWITCH_NAME SWITCH_IP
+****************************
+interface GigabitEthernet5/44
+ switchport access vlan 200
+ description ** PRINTER **
+ shut
+ no shut
+interface GigabitEthernet5/45
+ switchport access vlan 895
+ description ** AP **
+ shut
+ no shut
+interface GigabitEthernet6/10
+ switchport access vlan 895
+ description ** AP **
+ shut
+ no shut
+interface GigabitEthernet6/44
+ switchport access vlan 200
+ description ** PRINTER **
+ shut
+ no shut
+interface GigabitEthernet6/45
+ switchport access vlan 200
+ description ** PRINTER **
+ shut
+ no shut
