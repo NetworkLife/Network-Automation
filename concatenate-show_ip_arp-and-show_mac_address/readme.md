@@ -1,0 +1,1 @@
+instead of manually do "show ip arp" / "show mac address-table" on the core switch and then find the next-hop, connect on it, type "show mac address-table" to know the port where is connected a specific MAC, this script is browsing the entire "show ip arp" & "show mac address-table" on your switches.
