@@ -19,10 +19,11 @@ from DEVICE_CREDS import all_devices
 def normalise_show_interface_output(results):
     for a_dict in results:
         for identifier,v in a_dict.items():
-            (out_string) = v
-            print (out_string);
-            print ('-'*20);
-            print ('\n');
+            (success, out_string) = v
+            if success:
+	        print (out_string);
+                print ('-'*20);
+                print ('\n');
 
 def show_interfaces(a_device, mp_queue):
     return_data = {}
@@ -40,7 +41,7 @@ def show_interfaces(a_device, mp_queue):
         mp_queue.put(return_data)
         return None
 
-    return_data[identifier] = (show_interfaces)
+    return_data[identifier] = (True, show_interfaces)
     mp_queue.put(return_data)
 		
 def main():
