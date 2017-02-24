@@ -36,10 +36,9 @@ def show_interfaces(a_device, mp_queue):
         show_interfaces = net_connect.send_command_timing(show_interfaces_command)
     except (NetMikoTimeoutException, NetMikoAuthenticationException) as e:
         return_data[identifier] = (False, e)
-
-    # Add data to the queue (for parent process)
-    mp_queue.put(return_data)
-    return None
+        # Add data to the queue (for parent process)
+        mp_queue.put(return_data)
+        return None
 
     return_data[identifier] = (show_interfaces)
     mp_queue.put(return_data)
