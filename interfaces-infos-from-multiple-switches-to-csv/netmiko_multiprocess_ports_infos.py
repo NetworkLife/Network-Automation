@@ -8,10 +8,19 @@ Create the following table from a "show interfaces" on multiple switches
 '''
 
 import textfsm
+import sys
+
+# Catch Paramiko warnings about libgmp and RandomPool
+import warnings
+with warnings.catch_warnings(record=True) as w:
+    import paramiko
+
 import multiprocessing
 from datetime import datetime
+
 import netmiko
 from netmiko.ssh_exception import NetMikoTimeoutException, NetMikoAuthenticationException
+
 
 # DEVICE_CREDS contains the devices to connect to
 from DEVICE_CREDS import all_devices
@@ -21,29 +30,33 @@ def normalise_show_interface_output(results):
         for identifier,v in a_dict.items():
             (success, out_string) = v
             if success:
-	        print (out_string);
-                print ('-'*20);
+                print ('{0}\n{1}'.format(identifier,out_string));
                 print ('\n');
+                print ('-'*40);
+                print ('\n');		
+    print	
 
 def show_interfaces(a_device, mp_queue):
+    debug = True
     return_data = {}
-    identifier = '{ip}'.format(**a_device)
+	
+    show_interfaces_command = 'show interfaces | inc GigabitEthernet2/12 '
+    SSHClass = netmiko.ssh_dispatcher(a_device['device_type'])
     
     try:
-        SSHClass = netmiko.ssh_dispatcher(a_device['device_type'])
-		
         net_connect = SSHClass(**a_device)
-        show_interfaces_command = 'show interfaces'
+        hostname = net_connect.find_prompt()
+        identifier = hostname
+        identifier += '{ip}'.format(**a_device)
         show_interfaces = net_connect.send_command_timing(show_interfaces_command)
     except (NetMikoTimeoutException, NetMikoAuthenticationException) as e:
         return_data[identifier] = (False, e)
-        # Add data to the queue (for parent process)
         mp_queue.put(return_data)
         return None
-
+    
     return_data[identifier] = (True, show_interfaces)
     mp_queue.put(return_data)
-		
+	
 def main():
 
     mp_queue = multiprocessing.Queue()
@@ -60,16 +73,25 @@ def main():
     # wait until the child processes have completed
     for p in processes:
         p.join()
-		
+	
     # retrieve all the data from the "show interfaces" queue
     results = []
     for p in processes:
         results.append(mp_queue.get())
-		
-	# add '-------------' between each "show interface" output
-    raw_text_data = normalise_show_interface_output(results)
 	
-	# textFSM the output
+    orig_stdout = sys.stdout
+    fichier = open("show_interfaces.txt", "w", encoding='utf-8')
+    sys.stdout = fichier
+    fichier.write(str(normalise_show_interface_output(results)))
+    sys.stdout = orig_stdout
+    fichier.close()
+	
+    # Load the input file to a variable
+    input_file = open("show_interfaces.txt", encoding='utf-8')
+    raw_text_data = input_file.read()
+    input_file.close()
+	
+    # textFSM the output
     # The argument 'template' is a file handle and 'raw_text_data' is a 
     # string with the content from the previous show_interfaces() function
     template = open("cisco_ios_show_interfaces.template")
@@ -80,8 +102,8 @@ def main():
     outfile_name = open("outfile.csv", "w+")
     outfile = outfile_name
 	 
-	# Display result as CSV and write it to the output file
-	# First the column headers...
+    # Display result as CSV and write it to the output file
+    # First the column headers...
     print(re_table.header)
     for s in re_table.header:
         outfile.write("%s;" % s)
