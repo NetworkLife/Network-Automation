@@ -29,4 +29,4 @@
 - Extract "show inventory" from all your switches and put them in an output.csv
 
 # Disclaimer
-I'm not a dev, this is NOT fancy code. It does work (for me at least!) though. You can seriously mess up your ACI fabric with my scripts if you don't know what you're doing. I take no responsibility for that :)
+I'm not a dev, this is NOT fancy code. It does work (for me at least!) though. You can seriously mess up your network with my scripts if you don't know what you're doing. I take no responsibility for that :)
