@@ -7,6 +7,8 @@ Create the following table from a "show interfaces" on multiple switches
 +-----------+-------------+-----------------+---------------+---------+-----+-------------+------------+-----+-------------+--------+--------+-----------+------+---------------+----------------+-------+--------+-----------+----------+-----+---------+-----------+------------+-----------+--------+------------+------------+----------------+
 '''
 
+import os
+import stat
 import textfsm
 import sys
 
@@ -99,9 +101,10 @@ def main():
     re_table = textfsm.TextFSM(template)
     fsm_results = re_table.ParseText(raw_text_data)
  
-    # the results are written to a CSV file
+    # the results are written to a CSV file (droits restreints : inventaire reseau)
     outfile_name = open("outfile.csv", "w+")
     outfile = outfile_name
+    os.chmod("outfile.csv", stat.S_IRUSR | stat.S_IWUSR)  # 0600
 	 
 	# Display result as CSV and write it to the output file
 	# First the column headers...

@@ -42,7 +42,7 @@ for o, a in myopts:
         sys.exit()
 
 if addr == "":
-  addr = raw_input("Enter the MAC address: ")
+  addr = input("Enter the MAC address: ")
 
 # Determine which delimiter style out input is using
 if "." in addr:
@@ -63,6 +63,6 @@ cisco= ".".join(["%s%s%s%s" % (m[i], m[i+1], m[i+2], m[i+3]) for i in range(0,12
 eui= ":".join(["%s%s" % (m[i], m[i+1]) for i in range(0,12,2)])
 ms= "-".join(["%s%s" % (u[i], u[i+1]) for i in range(0,12,2)])
 
-print "Cisco: " + cisco
-print "EUI: " + eui
-print "Microsoft: " + ms
+print("Cisco: " + cisco)
+print("EUI: " + eui)
+print("Microsoft: " + ms)

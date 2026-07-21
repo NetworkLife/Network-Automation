@@ -1,16 +1,16 @@
+#!/usr/bin/env python3
 '''
 Requires paramiko >=1.8.0 (paramiko had an issue with multiprocessing prior to this)
-Example code showing how to use netmiko for multiprocessing.  Create a 
+Example code showing how to use netmiko for multiprocessing.  Create a
 separate process for each ssh connection.  Each subprocess executes a
 'show version' command on the remote device.  Use a multiprocessing.queue to
 pass data from subprocess to parent process.
-Only supports Python2
 '''
 
 # Catch Paramiko warnings about libgmp and RandomPool
 import warnings
-with warnings.catch_warnings(record=True) as w:
-    import paramiko
+with warnings.catch_warnings(record=True):
+    import paramiko  # noqa: F401
 
 import multiprocessing
 from datetime import datetime
@@ -22,27 +22,26 @@ from netmiko.ssh_exception import NetMikoTimeoutException, NetMikoAuthentication
 from DEVICE_CREDS import all_devices
 
 def print_output(results):
-    
-    print "\nSuccessful devices:"
+
+    print("\nSuccessful devices:")
     for a_dict in results:
-        for identifier,v in a_dict.iteritems():
+        for identifier, v in a_dict.items():
             (success, out_string) = v
             if success:
-                print '\n\n'
-                print '#' * 80
-                print 'Device = {0}\n'.format(identifier)
-                print out_string
-                print '#' * 80
+                print('\n\n')
+                print('#' * 80)
+                print('Device = {0}\n'.format(identifier))
+                print(out_string)
+                print('#' * 80)
 
-    print "\n\nFailed devices:\n"
+    print("\n\nFailed devices:\n")
     for a_dict in results:
-        for identifier,v in a_dict.iteritems():
+        for identifier, v in a_dict.items():
             (success, out_string) = v
             if not success:
-                print 'Device failed = {0}'.format(identifier)
+                print('Device failed = {0}'.format(identifier))
 
-    print "\nEnd time: " + str(datetime.now())
-    print
+    print("\nEnd time: " + str(datetime.now()))
 
 
 def worker_show_version(a_device, mp_queue):
@@ -81,7 +80,7 @@ def main():
     mp_queue = multiprocessing.Queue()
     processes = []
 
-    print "\nStart time: " + str(datetime.now())
+    print("\nStart time: " + str(datetime.now()))
 
     for a_device in all_devices:
 

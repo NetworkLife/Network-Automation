@@ -1,0 +1,19 @@
+# Secrets / identifiants — ne jamais commiter
+.env
+*.env
+secrets.py
+credentials.py
+
+# Sauvegardes de configuration (peuvent contenir des secrets)
+backups/
+*-config.txt
+
+# Sorties generees (inventaire reseau : IP, MAC, numeros de serie)
+outfile.csv
+show_interfaces.txt
+show_inventory.txt
+new_config.txt
+
+# Python
+__pycache__/
+*.pyc

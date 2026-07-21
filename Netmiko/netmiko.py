@@ -1,6 +1,11 @@
-#!/usr/bin/python
-# TUTORIAL / BASICs examples of Netmiko library 
-# version: 0.1
+#!/usr/bin/env python3
+# TUTORIAL / BASICs examples of Netmiko library
+# version: 0.2
+#
+# NOTE : fichier illustratif. Les hotes et identifiants ci-dessous
+# (ntc/ntc123, pyclass/password, admin/...) sont des valeurs d'EXEMPLE issues
+# de tutoriels publics, ce ne sont pas de vrais identifiants. Pour un usage
+# reel, lire les identifiants depuis l'environnement (cf. DEVICE_CREDS.py).
 
 from netmiko import ConnectHandler
 from datetime import datetime
@@ -49,7 +54,7 @@ net_connect.find_prompt()
 # ------------------------------------ #
 
 output = device.send_command('show version')
-print output;
+print(output)
 
 # -------------------------------------------- #
 # ------ send config command - one by one ---- #
@@ -101,12 +106,12 @@ all_devices = [cisco_881, cisco_asa]
 
 start_time = datetime.now()
 for a_device in all_devices:
-net_connect = ConnectHandler(**a_device)
-output = net_connect.send_command("show arp")
-print "\n\n>>>>>>>>> Device {0} <<<<<<<<<".format(a_device['device_type'])
-print output
-print ">>>>>>>>> End <<<<<<<<<"
- 
+    net_connect = ConnectHandler(**a_device)
+    output = net_connect.send_command("show arp")
+    print("\n\n>>>>>>>>> Device {0} <<<<<<<<<".format(a_device['device_type']))
+    print(output)
+    print(">>>>>>>>> End <<<<<<<<<")
+
 end_time = datetime.now()
 
 total_time = end_time - start_time 
