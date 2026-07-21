@@ -16,8 +16,8 @@
 - **unit_test_sh_interfaces_to_csv.py - convert "show interfaces" into an exploitable .csv
 - **unit_test_sh_interfaces_to_table.py - convert "show interfaces" into an exploitable python list
   
-**backup-multiple-switches-to-tftp**
-- "copy run tftp" on multiple devices using Netmiko to backup all your devices in a few seconds.
+**backup-multiple-switches-over-ssh**
+- Backup the running-config of multiple devices using Netmiko, over the encrypted SSH session, in a few seconds. Files are saved locally with 0600 permissions.
 
 **concatenate-show_ip_arp-and-show_mac_address**
 - Concat "show ip arp" and "show mac address-table" to match MAC Addresses with interfaces of all switches.

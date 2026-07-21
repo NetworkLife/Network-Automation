@@ -51,7 +51,7 @@ Recommandations :
 
 ### 2. Sauvegarde de configuration via TFTP (Élevée)
 
-`backup-multiple-switches-to-tftp/netmiko_multiprocess_backup_all.py` exécute `copy running-config tftp://...` sur chaque équipement.
+`backup-multiple-switches-to-tftp/netmiko_multiprocess_backup_all.py` (dossier renommé depuis en `backup-multiple-switches-over-ssh/`) exécutait `copy running-config tftp://...` sur chaque équipement.
 
 TFTP (UDP/69) n'a ni authentification ni chiffrement. La configuration complète part en clair sur le réseau — elle peut contenir des community strings SNMP, des hash de mots de passe, des clés pré-partagées (VPN, routage), des ACL — et atterrit sur le serveur TFTP sans contrôle d'accès.
 
@@ -102,5 +102,5 @@ Les changements suivants ont été apportés dans cette même branche (PR #1) po
 
 Constats laissés en l'état (choix documenté) :
 - **n°3 (clé d'hôte SSH)** : nécessite une infrastructure `known_hosts` propre à l'environnement de déploiement ; non pertinent à figer dans des scripts de labo. Recommandation maintenue pour un usage en production.
-- Le répertoire `backup-multiple-switches-to-tftp/` conserve son nom d'origine (référencé dans le `readme.md` et l'historique) bien que le TFTP ait été retiré.
+- Le répertoire `backup-multiple-switches-to-tftp/` a été renommé en `backup-multiple-switches-over-ssh/` puisque le TFTP a été retiré.
 - Les fichiers d'exemple déjà committés (`TextFSM/outfile.csv`, etc.) sont conservés comme jeux de données de démonstration ; le `.gitignore` empêche seulement les futurs.
